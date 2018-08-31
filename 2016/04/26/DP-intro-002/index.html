@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="临街小站" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="溪西小站" type="application/atom+xml" />
 
 
 
@@ -96,8 +96,8 @@
 这个问题就比较好说了，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DP介绍-二维苹果收集">
-<meta property="og:url" content="http://peihao.space/2016/04/26/DP-intro-002/index.html">
-<meta property="og:site_name" content="临街小站">
+<meta property="og:url" content="http://www.hiworld.world/2016/04/26/DP-intro-002/index.html">
+<meta property="og:site_name" content="溪西小站">
 <meta property="og:description" content="问题引出
 平面上有N*M个格子，每个格子中放着一定数量的苹果。你从左上角的格子开始，每一步只能向下走或是向右走，每次走到一个格子上就把格子里的苹果收集起来，这样下去，你最多能收集到多少个苹果。
 
@@ -106,7 +106,7 @@
 当前位置（x，y）能够获取的苹果数目最多是多少。
 
 这个问题就比较好说了，">
-<meta property="og:image" content="http://peihao.space\img\article\DP-getapples.png">
+<meta property="og:image" content="http://www.hiworld.world\img\article\DP-getapples.png">
 <meta property="og:updated_time" content="2017-09-14T15:37:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DP介绍-二维苹果收集">
@@ -145,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://peihao.space/2016/04/26/DP-intro-002/"/>
+  <link rel="canonical" href="http://www.hiworld.world/2016/04/26/DP-intro-002/"/>
 
 
 
 
 
-  <title> DP介绍-二维苹果收集 | 临街小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> DP介绍-二维苹果收集 | 溪西小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -192,7 +192,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">临街小站</span>
+      <span class="site-title">溪西小站</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -306,7 +306,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://peihao.space/2016/04/26/DP-intro-002/">
+  <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2016/04/26/DP-intro-002/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="clinjie">
@@ -315,9 +315,9 @@
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="临街小站">
+    <meta itemprop="name" content="溪西小站">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="临街小站" src="">
+      <img style="display:none;" itemprop="url image" alt="溪西小站" src="">
     </span>
   </span>
 
@@ -428,7 +428,7 @@
 <p>以<code>s[length][length]</code>记录每个格子包含的苹果数目，<code>dp[length][length]</code>记录到达当前节点最多获取的苹果数目，即子问题的状态。问题的状态转移方程：</p>
 <p><code>dp[x][y] = max( if(x&gt;0) dp[x-1][y] , if(y&gt;0) dp[x][y-1])</code></p>
 <h1 id="实现">实现</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span> m,n;</span><br><span class="line"></span><br><span class="line"><span class="comment">//递归版本</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dp_fun</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  dp[x][y] = a[x][y];</span><br><span class="line">  <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span>(x &gt; <span class="number">0</span> &amp;&amp; max &lt; dp[x-<span class="number">1</span>][y])</span><br><span class="line">    max = dp[x-<span class="number">1</span>][y];</span><br><span class="line">  <span class="keyword">if</span>(y &gt; <span class="number">0</span> &amp;&amp; max &lt; dp[x][y-<span class="number">1</span>])</span><br><span class="line">    max = dp[x][y-<span class="number">1</span>];</span><br><span class="line">  dp[x][y] += max;</span><br><span class="line">  <span class="keyword">if</span>(x&lt;m-<span class="number">1</span>)</span><br><span class="line">    dp_fun(x+<span class="number">1</span>,y);	</span><br><span class="line">  <span class="keyword">if</span>(y&lt;n-<span class="number">1</span>)</span><br><span class="line">    dp_fun(x,y+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">/*递推版本  调用dp_fun(m,n);</span><br><span class="line">void dp_fun(int x,int y)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*dp[0][0]=a[0][0];</span><br><span class="line">    for(int i=1;i&lt;x;i++)</span><br><span class="line">        dp[i][0]=dp[i-1][0]+a[i][0];</span><br><span class="line">    for(int i=1;i&lt;y;i++)</span><br><span class="line">        dp[0][i]=dp[0][i-1]+a[0][i];</span><br><span class="line">    for(int i=1;i&lt;x;i++)</span><br><span class="line">        for(int j=1;j&lt;y;j++)&#123;</span><br><span class="line">        int max_value=dp[i][j-1]&gt;dp[i-1][j]?dp[i][j-1]:dp[i-1][j];</span><br><span class="line">        dp[i][j]=a[i][j]+max_value;</span><br><span class="line">        &#125;*/</span></span><br><span class="line">    for(int i=1;i&lt;x;i++)</span><br><span class="line">        a[i][0]=a[i-1][0]+a[i][0];</span><br><span class="line">    for(int i=1;i&lt;y;i++)</span><br><span class="line">        a[0][i]=a[0][i-1]+a[0][i];</span><br><span class="line">    for(int i=1;i&lt;x;i++)</span><br><span class="line">        for(int j=1;j&lt;y;j++)&#123;</span><br><span class="line">        int max_value=a[i][j-1]&gt;a[i-1][j]?a[i][j-1]:a[i-1][j];</span><br><span class="line">        a[i][j]+=max_value;</span><br><span class="line">        &#125;</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">  <span class="comment">//m、n代表格子的数目，在本例中&lt;=100 </span></span><br><span class="line">  <span class="built_in">cin</span>&gt;&gt;m&gt;&gt;n;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">      <span class="built_in">cin</span>&gt;&gt;a[i][j];</span><br><span class="line">  dp_fun(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;dp[i][j]&lt;&lt;<span class="string">"\t"</span>;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://peihao.space\img\article\DP-getapples.png" alt=""></p>
+<p><img src="http://www.hiworld.world\img\article\DP-getapples.png" alt=""></p>
 
       
     </div>
