@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="临街小站" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="溪西小站" type="application/atom+xml" />
 
 
 
@@ -96,8 +96,8 @@
 评论处理器——用于响应为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django初识3">
-<meta property="og:url" content="http://peihao.space/2016/09/11/django_intro3/index.html">
-<meta property="og:site_name" content="临街小站">
+<meta property="og:url" content="http://www.hiworld.world/2016/09/11/django_intro3/index.html">
+<meta property="og:site_name" content="溪西小站">
 <meta property="og:description" content="View视图Django 中的视图的概念是「一类具有相同功能和模板的网页的集合」。比如，在一个博客应用中，你可能会创建如下几个视图：
 
 博客首页——展示最近的几项内容。
@@ -106,8 +106,8 @@
 以月为单位的归档页——展示选中的月份里各天创建的内容。
 以天为单位的归档页——展示选中天里创建的所有内容。
 评论处理器——用于响应为">
-<meta property="og:image" content="http://peihao.space/img/article/djaogo/django_3_1.png">
-<meta property="og:image" content="http://peihao.space/img/article/djaogo/django_3_2.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/djaogo/django_3_1.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/djaogo/django_3_2.png">
 <meta property="og:updated_time" content="2017-09-14T15:37:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django初识3">
@@ -146,13 +146,13 @@
 
 
 
-  <link rel="canonical" href="http://peihao.space/2016/09/11/django_intro3/"/>
+  <link rel="canonical" href="http://www.hiworld.world/2016/09/11/django_intro3/"/>
 
 
 
 
 
-  <title> Django初识3 | 临街小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Django初识3 | 溪西小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -193,7 +193,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">临街小站</span>
+      <span class="site-title">溪西小站</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -307,7 +307,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://peihao.space/2016/09/11/django_intro3/">
+  <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2016/09/11/django_intro3/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="clinjie">
@@ -316,9 +316,9 @@
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="临街小站">
+    <meta itemprop="name" content="溪西小站">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="临街小站" src="">
+      <img style="display:none;" itemprop="url image" alt="溪西小站" src="">
     </span>
   </span>
 
@@ -483,7 +483,7 @@
 <li><p>index.html文件中填充需要修改设计的部分</p>
 </li>
 </ul>
-<p><img src="http://peihao.space/img/article/djaogo/django_3_1.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/djaogo/django_3_1.png" alt=""></p>
 <p>同时在view.py中修改pools/index.html对应的view函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(request)</span>:</span></span><br><span class="line">	latest_question_list=Question.objects.order_by(<span class="string">'-pub_date'</span>)[:<span class="number">5</span>]</span><br><span class="line">	template=loader.get_template(<span class="string">'polls/index.html'</span>)</span><br><span class="line">	context=&#123;</span><br><span class="line">		<span class="string">'latest_question_list'</span>:latest_question_list,</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> HttpResponse(template.render(context,request))</span><br></pre></td></tr></table></figure>
 <p>或者我们可以直接使用<code>render</code>函数：</p>
@@ -499,7 +499,7 @@
 <h1 id="去除硬编码以及namespace">去除硬编码以及namespace</h1><p>在templates/polls/目录下的index.html文件中，我们定义了polls 应用的首页模板，当访问site_address/polls/时，默认加载site_address/polls/index.html文件中的模板进行匹配。</p>
 <pre><code><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"/polls//"</span>&gt;</span><span class="comment"></span>  
 </code></pre><p>在前文中，我们直接使用的是这种absolute url，这对于项目的若耦合目标相违背，django提供了url函数通过在urls.py中定义的url name直接连接代替硬编码：</p>
-<p><img src="http://peihao.space/img/article/djaogo/django_3_2.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/djaogo/django_3_2.png" alt=""></p>
 <p>其中<code>url &#39;detail&#39; question.id</code>代表的是文字下面的链接地址，url是函数名，detail是url name，对应的是<code>^()/$</code>，在本例中就是对应polls，随后的question.id就是不同question的id值，此项与上面的对应</p>
 <p>其中’detail’代表的是urls.py文件中定义的url name：</p>
 <p><code>url(r&#39;^(?P&lt;question_id&gt;[0-9]+)/$&#39;,views.detail,name=&#39;detail&#39;)</code></p>

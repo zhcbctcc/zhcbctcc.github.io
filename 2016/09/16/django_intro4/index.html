@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="临街小站" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="溪西小站" type="application/atom+xml" />
 
 
 
@@ -90,12 +90,12 @@
 问题展示页面在polls/question_id中显示，而与之对应的template是detail.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django初识4">
-<meta property="og:url" content="http://peihao.space/2016/09/16/django_intro4/index.html">
-<meta property="og:site_name" content="临街小站">
+<meta property="og:url" content="http://www.hiworld.world/2016/09/16/django_intro4/index.html">
+<meta property="og:site_name" content="溪西小站">
 <meta property="og:description" content="编写简单的vote逻辑框架投票网站，我们在每个需要投票问题的页面上展现出所有可以投票的选项，并且在每个选项前假如radio单选按钮。当按钮结束之后，选择submit跳转到结果显示页面.
 问题展示页面在polls/question_id中显示，而与之对应的template是detail.html">
-<meta property="og:image" content="http://peihao.space/img/article/djaogo/django_4_1.png">
-<meta property="og:image" content="http://peihao.space/img/article/djaogo/django_4_2.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/djaogo/django_4_1.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/djaogo/django_4_2.png">
 <meta property="og:updated_time" content="2017-09-14T15:37:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Django初识4">
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://peihao.space/2016/09/16/django_intro4/"/>
+  <link rel="canonical" href="http://www.hiworld.world/2016/09/16/django_intro4/"/>
 
 
 
 
 
-  <title> Django初识4 | 临街小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> Django初识4 | 溪西小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -175,7 +175,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">临街小站</span>
+      <span class="site-title">溪西小站</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -289,7 +289,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://peihao.space/2016/09/16/django_intro4/">
+  <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2016/09/16/django_intro4/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="clinjie">
@@ -298,9 +298,9 @@
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="临街小站">
+    <meta itemprop="name" content="溪西小站">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="临街小站" src="">
+      <img style="display:none;" itemprop="url image" alt="溪西小站" src="">
     </span>
   </span>
 
@@ -392,7 +392,7 @@
       
         <h1 id="编写简单的vote逻辑框架">编写简单的vote逻辑框架</h1><p>投票网站，我们在每个需要投票问题的页面上展现出所有可以投票的选项，并且在每个选项前假如radio单选按钮。当按钮结束之后，选择submit跳转到结果显示页面.</p>
 <p>问题展示页面在polls/question_id中显示，而与之对应的template是detail.html</p>
-<p><img src="http://peihao.space/img/article/djaogo/django_4_1.png" alt=""><br><a id="more"></a><br>上面设计了一个表单，选择一个选项之后提交将会跳转到action。</p>
+<p><img src="http://www.hiworld.world/img/article/djaogo/django_4_1.png" alt=""><br><a id="more"></a><br>上面设计了一个表单，选择一个选项之后提交将会跳转到action。</p>
 <p>这里要注意的是<strong>csrf_token</strong></p>
 <p>Cross-site request forgery 跨站请求伪造，也被称为 “one click attack” 或者 session riding，通常缩写为 CSRF 或者 XSRF，是一种对网站的恶意利用。CSRF 则通过伪装来自受信任用户的请求来利用受信任的网站。</p>
 <p>CSRF 主流防御方式是在后端生成表单的时候生成一串随机 token ，内置到表单里成为一个字段，同时，将此串 token 置入 session 中。每次表单提交到后端时都会检查这两个值是否一致，以此来判断此次表单提交是否是可信的。提交过一次之后，如果这个页面没有生成 CSRF token ，那么 token 将会被清空，如果有新的需求，那么 token 会被更新。</p>
@@ -414,7 +414,7 @@
 <li>在这个例子中，我们在 HttpResponseRedirect 的构造函数中使用 reverse() 函数。这个函数避免了我们在视图函数中硬编码 URL。它需要我们给出我们想要跳转的视图的名字和该视图所对应的URL模式中需要给该视图提供的参数。</li>
 </ul>
 <p>在上面的代码中，views.vote函数使用了<code>render(request, &#39;polls/detail.html</code>模板文件，所以我们在相应的模板目录下创建文件，实现界面设计。</p>
-<p><img src="http://peihao.space/img/article/djaogo/django_4_2.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/djaogo/django_4_2.png" alt=""></p>
 <p>上面的html页面代码将会显示当前投票问题的所有选项以及投票结果。<code>choice.votes|pluralize</code>代表如果choice.votes是&gt;=1的情况下，将会返回s，也就是vote复数的情况。</p>
 <h1 id="通用视图">通用视图</h1><p>Web 开发中的一个常见情况：根据 URL 中的参数从数据库中获取数据、载入模板文件然后返回渲染后的模板。 由于这种情况特别常见，Django 提供一种快捷方式，叫做“通用视图”系统。</p>
 <h2 id="改良URLconf">改良URLconf</h2><p>修改polls/urls.py：</p>
