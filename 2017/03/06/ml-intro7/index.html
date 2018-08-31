@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="临街小站" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="溪西小站" type="application/atom+xml" />
 
 
 
@@ -91,12 +91,12 @@
 $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
 <meta property="og:type" content="article">
 <meta property="og:title" content="贝叶斯Bayesian">
-<meta property="og:url" content="http://peihao.space/2017/03/06/ml-intro7/index.html">
-<meta property="og:site_name" content="临街小站">
+<meta property="og:url" content="http://www.hiworld.world/2017/03/06/ml-intro7/index.html">
+<meta property="og:site_name" content="溪西小站">
 <meta property="og:description" content="贝叶斯决策论在相关概率已知的情况下，贝叶斯决策论考虑如何基于这些概率和误判损失选择最优的类别标记。
 假设有N中可能的类别标记${c_1,c_2,c_3,…,c_N}, \lambda_{ij}$是将一个真实标记为$c_j$的样本误分类为i产生的损失。推出来样本x分类为$c_i$所产生的期望损失：
 $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-intro7-1.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-intro7-1.png">
 <meta property="og:updated_time" content="2017-09-14T15:37:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="贝叶斯Bayesian">
@@ -130,13 +130,13 @@ $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
 
 
 
-  <link rel="canonical" href="http://peihao.space/2017/03/06/ml-intro7/"/>
+  <link rel="canonical" href="http://www.hiworld.world/2017/03/06/ml-intro7/"/>
 
 
 
 
 
-  <title> 贝叶斯Bayesian | 临街小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 贝叶斯Bayesian | 溪西小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -177,7 +177,7 @@ $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">临街小站</span>
+      <span class="site-title">溪西小站</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -291,7 +291,7 @@ $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://peihao.space/2017/03/06/ml-intro7/">
+  <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2017/03/06/ml-intro7/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="clinjie">
@@ -300,9 +300,9 @@ $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="临街小站">
+    <meta itemprop="name" content="溪西小站">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="临街小站" src="">
+      <img style="display:none;" itemprop="url image" alt="溪西小站" src="">
     </span>
   </span>
 
@@ -426,7 +426,7 @@ $R(c_i \mid x)=\sum\limits_{j=1}^N \lambda_{ij}P(c_">
 <p>半朴素贝叶斯适当的考虑一部分属性间的相互依赖关系，从而不至于彻底忽略比较强的属性依赖；但是为了避免问题陷入到复杂的联合概率计算中，一般会对属性依赖的数量有要求。</p>
 <p>假定只能最多一个依赖关系，也就是”独依赖估计”：$P(c\mid x) \propto P(c)\prod\limits_{i=1}^dP(x_i \mid c,pa_i) $</p>
 <p>其中$pa_i$为属性$x_i$所依赖的属性，称为$x_i$的父属性。若每个属性的父属性都已知，则可直接使用之前的公式求解；否则我们需要确定每个属性的父属性。</p>
-<p><img src="http://peihao.space/img/article/ml/ml-intro7-1.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-intro7-1.png" alt=""></p>
 <p>上图是朴素贝叶斯（独、无依赖立）以及两种常见的半贝叶斯（独依赖）：SPODE（SUper Parent ODE）和TAN（Tree Augmented naive Bayes）</p>
 <p>SPODE中有一个超属性，属性如果有依赖，则都依赖到此属性上面；</p>
 <p>TAN则是在最大带权生成树算法基础上通过转换将依赖结构化简。</p>

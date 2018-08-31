@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="临街小站" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="溪西小站" type="application/atom+xml" />
 
 
 
@@ -90,15 +90,15 @@
 间隔与支持向量给定训练样本集$D={(x_1,y_1),(x_2,y_2),…,(x_m,y_m)},y_i \in (-1,+1 )$  分类学习最基本的思想就是基于训练集D在样本空间中找到一个划分超平面，将不同类别的样本分开。SVM就是帮助我们寻找到众多划分超平面中最符合的。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ML学习-SVM">
-<meta property="og:url" content="http://peihao.space/2017/03/05/ml-intro6/index.html">
-<meta property="og:site_name" content="临街小站">
+<meta property="og:url" content="http://www.hiworld.world/2017/03/05/ml-intro6/index.html">
+<meta property="og:site_name" content="溪西小站">
 <meta property="og:description" content="支持向量机（Support Vector Machine）的求解通常是借助凸优化技术。
 间隔与支持向量给定训练样本集$D={(x_1,y_1),(x_2,y_2),…,(x_m,y_m)},y_i \in (-1,+1 )$  分类学习最基本的思想就是基于训练集D在样本空间中找到一个划分超平面，将不同类别的样本分开。SVM就是帮助我们寻找到众多划分超平面中最符合的。">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-intro6-1.png">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-intro6-2.png">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-intro6-3.png">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-intro6-4.png">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-ml-intro6-4.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-intro6-1.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-intro6-2.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-intro6-3.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-intro6-4.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-ml-intro6-4.png">
 <meta property="og:updated_time" content="2017-09-14T15:37:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ML学习-SVM">
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://peihao.space/2017/03/05/ml-intro6/"/>
+  <link rel="canonical" href="http://www.hiworld.world/2017/03/05/ml-intro6/"/>
 
 
 
 
 
-  <title> ML学习-SVM | 临街小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> ML学习-SVM | 溪西小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -178,7 +178,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">临街小站</span>
+      <span class="site-title">溪西小站</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -292,7 +292,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://peihao.space/2017/03/05/ml-intro6/">
+  <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2017/03/05/ml-intro6/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="clinjie">
@@ -301,9 +301,9 @@
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="临街小站">
+    <meta itemprop="name" content="溪西小站">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="临街小站" src="">
+      <img style="display:none;" itemprop="url image" alt="溪西小站" src="">
     </span>
   </span>
 
@@ -411,7 +411,7 @@
 <p>$y_i(\omega^T x_i +b) \geq 1 , i=1,2,…,m$<br>这个是之后式子的约束条件</p>
 <p>距离超平面最近的几个训练样本点使得上面的不等式等号成立，它们被称为支持向量(support vector)，两个异类支持向量到超平面的距离之和称为间隔(margin)</p>
 <p>$\gamma = \frac{2}{\omega}$</p>
-<p><img src="http://peihao.space/img/article/ml/ml-intro6-1.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-intro6-1.png" alt=""></p>
 <p>为了使得间隔最大，也就是求$\max\limits_{w,b} \frac{2}{\mid\mid \omega \mid\mid}$</p>
 <p>转换为$\min\limits_{w,b}\frac{\mid\mid \omega \mid\mid^2}{2}$</p>
 <p>这就是支持向量机</p>
@@ -460,8 +460,8 @@
 <p>$=\sum\limits_{i=1}^m\alpha_iy_i\phi(x_i)^T\phi(x)+b$</p>
 <p>$=\sum\limits_{i=1}^m\alpha_iy_i\kappa(x,x_i)+b$</p>
 <p>这里的\kappa就是核函数。</p>
-<p><img src="http://peihao.space/img/article/ml/ml-intro6-2.png" alt=""></p>
-<p><img src="http://peihao.space/img/article/ml/ml-intro6-3.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-intro6-2.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-intro6-3.png" alt=""></p>
 <h2 id="核函数组合">核函数组合</h2><ol>
 <li>$\kappa_1$和$\kappa_2$都是核函数，则对于任意正数$\gamma_1$和$\gamma_2$的线性组合:$\gamma_1\kappa_1 + \gamma_2\kappa_2$</li>
 </ol>
@@ -479,12 +479,12 @@
 <p>$\ell_{0/1}(z) = 1 if z&lt;0 else 0$</p>
 <p>当C无穷大时，所有样本均需要满足约束，等价于前面小结的式子；C为可数实数，则允许样本不满足约束</p>
 <p>为了使得$\ell$容易求导，通常使用下面几个数学性质较好的式子替代：</p>
-<p><img src="http://peihao.space/img/article/ml/ml-intro6-4.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-intro6-4.png" alt=""></p>
 <p>代入原式，然后使用松弛变量$\xi_i \geq 0$，松弛变量$\xi$替换原来C后面的部分，表示样本不满足约束的程度。</p>
 <p>使用之前介绍的对偶问题求解出最终的答案。</p>
 <h1 id="支持向量回归">支持向量回归</h1><p>支持向量回归（Support Vector Regression）假设我们能够容忍f(x)与y之间最多有$\epsilon$的误差，即仅当f(x)与y之间差别的绝对值大于$\epsilon$时才算损失。</p>
 <p>相当于以f(x)为中心，构建了一个宽度为$2\epsilon$的间隔带，落在带内的样本是正确的。</p>
-<p><img src="http://peihao.space/img/article/ml/ml-ml-intro6-4.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-ml-intro6-4.png" alt=""></p>
 <p>SVR问题可用式子表示：</p>
 <p>$\min\limits{\vec{\omega},b}\frac{\mid\mid \omega \mid\mid^2}{2}+C\sum\limits_{i=1}^m\ell_{\epsilon}(f(x_i-y_i))$</p>
 <p>其中$\ell_{\epsilon}$：$\ell_{\epsilon} ==0 if \mid z\mid \leq \epsilon else (\mid z \mid - \epsilon)$</p>

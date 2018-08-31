@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="临街小站" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="溪西小站" type="application/atom+xml" />
 
 
 
@@ -90,11 +90,11 @@
 聚类试图将数据集中的样本划分为若干个通常不相交的子集，每个子集称为一个簇（cluster）。通过这样的划分，每个簇可能对应与一些潜在的类别。这些类别两两不相交，并起来是整个数据集，聚类的结果就是产生一个标签结果序列。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="聚类">
-<meta property="og:url" content="http://peihao.space/2017/03/08/ml-clustering/index.html">
-<meta property="og:site_name" content="临街小站">
+<meta property="og:url" content="http://www.hiworld.world/2017/03/08/ml-clustering/index.html">
+<meta property="og:site_name" content="溪西小站">
 <meta property="og:description" content="机器学习可以根据样本是否有标签分类为有监督学习与无监督学习，前面介绍的基本都是有监督学习。无监督学习中，目标通过对无标记训练样本的学习来揭示数据的内在性质及规律。
 聚类试图将数据集中的样本划分为若干个通常不相交的子集，每个子集称为一个簇（cluster）。通过这样的划分，每个簇可能对应与一些潜在的类别。这些类别两两不相交，并起来是整个数据集，聚类的结果就是产生一个标签结果序列。">
-<meta property="og:image" content="http://peihao.space/img/article/ml/ml-intro8-1.png">
+<meta property="og:image" content="http://www.hiworld.world/img/article/ml/ml-intro8-1.png">
 <meta property="og:updated_time" content="2017-09-14T15:37:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="聚类">
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://peihao.space/2017/03/08/ml-clustering/"/>
+  <link rel="canonical" href="http://www.hiworld.world/2017/03/08/ml-clustering/"/>
 
 
 
 
 
-  <title> 聚类 | 临街小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title> 聚类 | 溪西小站 </title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -174,7 +174,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">临街小站</span>
+      <span class="site-title">溪西小站</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -288,7 +288,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://peihao.space/2017/03/08/ml-clustering/">
+  <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2017/03/08/ml-clustering/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="clinjie">
@@ -297,9 +297,9 @@
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="临街小站">
+    <meta itemprop="name" content="溪西小站">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="临街小站" src="">
+      <img style="display:none;" itemprop="url image" alt="溪西小站" src="">
     </span>
   </span>
 
@@ -476,7 +476,7 @@
 <li><p>密度相连：对$x_i$和$x_j$，若存在$x_k$使得$x_i,x_j$均由$x_k$密度可达，则两者密度相连。</p>
 </li>
 </ol>
-<p><img src="http://peihao.space/img/article/ml/ml-intro8-1.png" alt=""></p>
+<p><img src="http://www.hiworld.world/img/article/ml/ml-intro8-1.png" alt=""></p>
 <p>DBSCAN算法先任选数据集中的一个核心对象为种子，再由此出发确定相应的聚类簇。具体的，现根据给定的邻域参数$(\epsilon,MinPys)$找出所有的核心对象；然后以任意核心对象为出发点，找出由其密度可达的样本生成聚类簇，知道所有核心对象均被访问过为止。</p>
 <h1 id="层次聚类">层次聚类</h1><p>层次聚类试图在不同层次对数据集进行划分，从而形成树形的聚类结构。数据集的划分可采用自底向上的聚合策略，也可选择自顶下下的分析策略。</p>
 <p>AGNES是一种自底向上聚合策略的层次聚合算法。他先将数据集合中每个样本看作一个初始聚类簇，然后再算法运行的每一步中找出距离最近的两个聚类簇合并，该过程不断重复，直至达到预设的聚类簇个数。</p>
