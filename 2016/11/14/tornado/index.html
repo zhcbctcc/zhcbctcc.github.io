@@ -290,7 +290,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
   <link itemprop="mainEntityOfPage" href="http://www.hiworld.world/2016/11/14/tornado/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="clinjie">
+    <meta itemprop="name" content="chaobing">
     <meta itemprop="description" content="">
     <meta itemprop="image" content="/img/avatar.jpg">
   </span>
@@ -397,8 +397,8 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
 <ol>
 <li><code>IndexHandler</code>获取url中key为’ge=reeting’的value并填充到后面返回给浏览器，请求形式:</li>
 </ol>
-<p><code>curl http://localhost:8002/?greeting=clinjie</code></p>
-<p>返回：<code>clinjie, friendly user!</code></p>
+<p><code>curl http://localhost:8002/?greeting=chaobing</code></p>
+<p>返回：<code>chaobing, friendly user!</code></p>
 <p>注意的是，如果没有获取到名为greeting的键值，则会使用默认字符串Hello</p>
 <ol>
 <li><code>ReverseHandler</code>同样是处理get请求，不过在函数定义的时候有区别：<code>input</code>，这个参数将包含匹配处理函数正则表达式第一个括号里的字符串。如果正则表达式中有一系列额外的括号，匹配的字符串将被按照在正则表达式中出现的顺序作为额外的参数传递进来。</li>
@@ -412,14 +412,14 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
 <h1 id="异步执行">异步执行</h1><p>上面的例子中，修改IndexHandler类：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(slef)</span>:</span></span><br><span class="line">		time.sleep(<span class="number">10</span>)</span><br><span class="line">		greeting=self.get_argument(<span class="string">'greeting'</span>,<span class="string">'Hello'</span>)</span><br><span class="line">		self.write(ge=reeting+<span class="string">',*******'</span>)</span><br></pre></td></tr></table></figure>
 <p>其他不用修改，此时我们按顺序在两个terminal中请求</p>
-<p><code>curl http://localhost:8002/?greeting=clinjie</code></p>
+<p><code>curl http://localhost:8002/?greeting=chaobing</code></p>
 <p><code>curl http://localhost:8002/reverse/home</code></p>
 <p>可以发现，虽然我们执行的时间间隔非常小，不会超过3s，但是由于第一个请求被阻塞了，第二个很简单可以直接返回数据的请求也无法立刻执行，只能等待第一个请求执行完毕后开始执行后面的。</p>
 <p>tornado与其他web framework最出彩的就是对于异步处理支持度很高。</p>
 <h2 id="tornado-web-asynchronous注解">tornado.web.asynchronous注解</h2><p>在类前面使用<code>@tornado.web.asynchronous</code>装饰注解，此后命中匹配这个类的连接将会被认为是长连接(long connection)，保持连接开启。注意这里很重要，tornado默认是在当前方法结束之后就会将连接关闭，但是使用异步情况下，我们将会使用callback function，必须要保持连接开启</p>
 <p>直到某些到达状态（例如接受response）时都在等待。由于保证了长连接的状态，我们必须显式的执行self.finish关闭连接，否则连接是不会被关闭的，我们会一直等待，无法收到数据</p>
 <p>在类前面加入装饰器之后这个程序还是不能达到我们想要的效果，还要在函数中定义回调函数并在下面实现</p>
-<p><code>curl http://localhost:8002/?greeting=clinjie</code></p>
+<p><code>curl http://localhost:8002/?greeting=chaobing</code></p>
 <p>修改下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IndexHandler</span><span class="params">(tornado.web.RequestHandler)</span>:</span></span><br><span class="line"><span class="decorator">	@tornado.web.asynchronous</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self)</span>:</span></span><br><span class="line">		do sth...</span><br><span class="line">		tornado.ioloop.IOLoop.instance().add_timeout(time.time() + <span class="number">5</span>, callback=self.on_response)</span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">on_response</span><span class="params">(self)</span>:</span></span><br><span class="line">		<span class="comment">#self.write(self.greeting+',*******')</span></span><br><span class="line">		do sth...</span><br><span class="line">		self.finish()</span><br></pre></td></tr></table></figure>
 <p>终于可以搞了！</p>
@@ -435,7 +435,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
       
         
 <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
-    <img id="wechat_subscriber_qcode" src="/img/mp-qr.jpg" alt="clinjie wechat" style="width: 200px; max-width: 100%;"/>
+    <img id="wechat_subscriber_qcode" src="/img/mp-qr.jpg" alt="chaobing wechat" style="width: 200px; max-width: 100%;"/>
     <div>Think about u every day</div>
 </div>
 
@@ -543,8 +543,8 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/img/avatar.jpg"
-               alt="clinjie" />
-          <p class="site-author-name" itemprop="name">clinjie</p>
+               alt="chaobing" />
+          <p class="site-author-name" itemprop="name">chaobing</p>
           <p class="site-description motion-element" itemprop="description"></p>
         </div>
         <nav class="site-state motion-element">
@@ -588,7 +588,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
           
             
               <span class="links-of-author-item">
-                <a href="https://github.com/chuangwailinjie" target="_blank" title="github" rel="external nofollow">
+                <a href="https://github.com/zhcbctcc" target="_blank" title="github" rel="external nofollow">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
@@ -597,7 +597,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://weibo.com/chuangwalinjie" target="_blank" title="weibo" rel="external nofollow">
+                <a href="https://weibo.com/u/2684157340/home?topnav=1&wvr=6" target="_blank" title="weibo" rel="external nofollow">
                   
                     <i class="fa fa-fw fa-globe"></i>
                   
@@ -606,7 +606,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
               </span>
             
               <span class="links-of-author-item">
-                <a href="https://www.zhihu.com/people/peihaozhu" target="_blank" title="zhihu" rel="external nofollow">
+                <a href="https://www.zhihu.com/people/hiworld.world/activities" target="_blank" title="zhihu" rel="external nofollow">
                   
                     <i class="fa fa-fw fa-zhihu"></i>
                   
@@ -669,7 +669,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">clinjie</span>
+  <span class="author" itemprop="copyrightHolder">chaobing</span>
 </div>
 
 
@@ -1063,7 +1063,7 @@ Tornado在设计之初就考虑到了性能因素，旨在解决C10K问题，这
 <script type="text/javascript" src="/js/src/love.js"></script>
 <!-- 颗粒漂浮背景 -->
 <script type="text/javascript" src="/js/src/particle.js"></script>
-<script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="你要去哪里",clearTimeout(st)):(document.title="clinjie~~"+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},3e3))})</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/javascript">var OriginTitile=document.title,st;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="你要去哪里",clearTimeout(st)):(document.title="chaobing~~"+OriginTitile,st=setTimeout(function(){document.title=OriginTitile},3e3))})</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}},"messageStyle":"none"});
 </script>
