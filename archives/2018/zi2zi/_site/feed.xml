@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-04-07T04:09:38-07:00</updated><id>http://localhost:4000/</id><title type="html">No Face No Boundary</title><subtitle>Random stuff that I am interested in, generally some machine learning stuff. No guarantee.
+</subtitle><entry><title type="html">zi2zi: Master Chinese Calligraphy with Conditional Adversarial Networks</title><link href="http://localhost:4000/2017/04/06/zi2zi.html" rel="alternate" type="text/html" title="zi2zi: Master Chinese Calligraphy with Conditional Adversarial Networks" /><published>2017-04-06T00:54:16-07:00</published><updated>2017-04-06T00:54:16-07:00</updated><id>http://localhost:4000/2017/04/06/zi2zi</id><content type="html" xml:base="http://localhost:4000/2017/04/06/zi2zi.html">&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;img src=&quot;/assets/cover.png&quot; alt=&quot;cover&quot; style=&quot;width:100%;&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Generated samples. Related code can be found &lt;strong&gt;&lt;a href=&quot;https://github.com/kaonashi-tyc/zi2zi&quot;&gt;here&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/assets/intro.gif&quot; alt=&quot;animation&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;zi2zi&lt;/strong&gt; is the follow-up work for my last &lt;a href=&quot;https://github.com/kaonashi-tyc/Rewrite&quot;&gt;project&lt;/a&gt;, once again tackling the same problem of style transfer between Chinese fonts.&lt;/p&gt;
+
+&lt;p&gt;It is a pleasant surprise that the Rewrite project gets a fair amount of attention and interests, however, looking back, the result feels underwhelming. As an experimental attempt it does fulfill its purpose, but some big issues remain:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The generated images are oftentimes blurry&lt;/li&gt;
+  &lt;li&gt;Fails under more stylized fonts&lt;/li&gt;
+  &lt;li&gt;Limited to learn and output only one target font style at a time&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That is how zi2zi comes into being, an attempt to solve the above problems in one blow, this time blessed with the mighty power of &lt;a href=&quot;https://arxiv.org/abs/1406.2661&quot;&gt;GAN&lt;/a&gt;. On a more personal note, it also serves as a playground for me to tap into the wonderland of GAN and its variants.&lt;/p&gt;
+
+&lt;h2 id=&quot;one-gan-to-rule-them-all&quot;&gt;One GAN to Rule Them All&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;TL;DR:&lt;/strong&gt; It is a conditional generative adversarial network, combined from 3 awesome papers, with a little additional spice:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1611.07004&quot;&gt;Image-to-Image Translation with Conditional Adversarial Networks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1610.09585&quot;&gt;Conditional Image Synthesis With Auxiliary Classifier GANs&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1611.02200&quot;&gt;Unsupervised Cross-Domain Image Generation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As its name hints, the zi2zi model is directly derived and extended from the popular &lt;a href=&quot;https://github.com/phillipi/pix2pix&quot;&gt;pix2pix&lt;/a&gt; model. The network structure is illustrated below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/network.png&quot; alt=&quot;alt network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The structure of &lt;strong&gt;Encoder&lt;/strong&gt;, &lt;strong&gt;Decoder&lt;/strong&gt; and &lt;strong&gt;Discriminator&lt;/strong&gt; are directly borrowed from the pix2pix, specifically the Unet model, which are detailed in the original &lt;a href=&quot;https://arxiv.org/abs/1611.07004&quot;&gt;paper’s Appendix section&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;intuition&quot;&gt;Intuition&lt;/h3&gt;
+&lt;p&gt;Imagine a human designer work on a new typeface, they are definitely not learning the alphabet from scratch! Real world designers go through years of training to understand the structure of the letters/characters and the fundamental principles, before they could design a font on their own. To reflect this, it is important to make the model not only aware of its own style, but other fonts’ styles as well. Thus it is essential to enable to model to learn &lt;strong&gt;multiple font styles at the same time&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Modeling multiple styles concurrently has two major benefits:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The encoder gets exposed to many more characters, not only limited to one target font, but from all the fonts combined.&lt;/li&gt;
+  &lt;li&gt;The decoder could also learn different ways of writing the same radicals from other fonts.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By training multiple fonts together, it enforces the model to learn from each one of them then use the learned &lt;strong&gt;experience&lt;/strong&gt; to improve the rest of the crowd.&lt;/p&gt;
+
+&lt;h3 id=&quot;category-embedding-for-one-to-many-modeling&quot;&gt;Category Embedding for One-to-Many Modeling&lt;/h3&gt;
+&lt;p&gt;Now we have a problem that same character could appear in multiple fonts. Vanilla pix2pix model doesn’t handle such one-to-many relationship out-of-box. Inspired by &lt;a href=&quot;https://arxiv.org/abs/1611.04558&quot;&gt;Google’s zero-shot GNMT paper&lt;/a&gt;, the introduction of category embedding solves this by concatenating a &lt;strong&gt;non-trainable gaussian noise&lt;/strong&gt; as style embedding to the character embedding, right before it goes through decoder. By doing this, encoder still maps same character into the same vector, the decoder, on the other hand, will take both the character and style embeddings to generate the target character.&lt;/p&gt;
+
+&lt;h3 id=&quot;losses-lots-of-losses&quot;&gt;Losses, Lots of Losses&lt;/h3&gt;
+&lt;p&gt;With category embedding, we now have a GAN that can handle multiple styles at the same time. However, a new problem emerges: the model starts to confuse and mix the styles together, generating characters that don’t look like any of the provided targets. Stolen from the &lt;a href=&quot;https://arxiv.org/pdf/1610.09585.pdf&quot;&gt;AC-GAN model&lt;/a&gt;, the &lt;strong&gt;multi-class category loss&lt;/strong&gt; is added to supervise the discriminator to penalize such scenarios, by predicting the style of the generated characters, thus preserving the style itself.&lt;/p&gt;
+
+&lt;p&gt;Another important piece of the model is the &lt;strong&gt;constant loss&lt;/strong&gt; borrowed from &lt;a href=&quot;https://arxiv.org/abs/1611.02200&quot;&gt;DTN network&lt;/a&gt;. It follows a simple idea: the source and generated character should resemble the same character, thus they must appear close to each other in the embedded space as well. The introduction of this loss &lt;strong&gt;GREATLY, GREATLY&lt;/strong&gt; improves the convergence speed, by enforcing the encoder to preserve the identity of generated character, narrowing down the possible search space.&lt;/p&gt;
+
+&lt;p&gt;Finally &lt;strong&gt;total variation loss&lt;/strong&gt; is included, but from an empirical point of view, it doesn’t do much visible to improve the quality of generated images. Also for a lot of brush writing fonts, tv loss actually works against our real interests, so here it is left as optional.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-train-your-dragan&quot;&gt;How to Train Your (dra)GAN&lt;/h2&gt;
+&lt;p&gt;GAN is truly a beast to deal with. &lt;strike&gt;Only recommendation is to watch the losses goes up and down, then praise the SUN!&lt;/strike&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;two-step-training&quot;&gt;Two-Step Training&lt;/h3&gt;
+&lt;p&gt;One strategy I adopt is to split training into a two-step processes. First, train a big model with many fonts, then &lt;strong&gt;freeze the encoder&lt;/strong&gt;. After that, we can choose to &lt;strong&gt;fine-tune&lt;/strong&gt; the interesting individual fonts. This way, we have an encoder that trained to the extract abstract character structural information with tens of thousands characters, and a dedicated decoder to flesh out the target. This can be also viewed as a way of transfer learning using weight sharing.&lt;/p&gt;
+
+&lt;h3 id=&quot;experiment-details&quot;&gt;Experiment Details&lt;/h3&gt;
+
+&lt;p&gt;The big model is trained with 27 different fonts, approximately half Chinese half Japanese. For each font, between 1000 and 2000 characters are randomly sampled. During the fine-tune process, however, a different and bigger set of characters may be used, mostly in between 2000 to 3000 characters, with one exception that is trained with 4000 characters. And as with the same as Rewrite, the source font is &lt;a href=&quot;https://www.microsoft.com/typography/fonts/family.aspx?FID=37&quot;&gt;SIMSUM&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It takes about 2 days on a single 1080 GTX to train the big model over 30 epochs, which contains about 29,000 examples. Learning rate is initially set to 0.001 with a batch size 16, with other parameters left as defaults (L1_penalty=100, Lconst_penalty=15). The learning rate is slashed by half after every 10 epochs.&lt;/p&gt;
+
+&lt;p&gt;The fine-tune process, however, varies case by case, depending on difficulty and performance, usually with possibly higher L1 and const losses, e.g you can try L1_penalty=500, Lconst_penalty=1000.&lt;/p&gt;
+
+&lt;h3 id=&quot;notes&quot;&gt;Notes&lt;/h3&gt;
+&lt;p&gt;One seemingly trivial but fairly important thing to do before training, is to verify your data, for things like whether certain characters go missing, or whether the overall shape stay consistent between source and target fonts, since certain font might choose older or rarer ways of writing of some characters. Failure to do so would confuse the model and lead to mode collapse.&lt;/p&gt;
+
+&lt;h2 id=&quot;have-fun-with-the-model&quot;&gt;Have Fun With the Model&lt;/h2&gt;
+&lt;h3 id=&quot;compare-with-ground-truth&quot;&gt;Compare with Ground Truth&lt;/h3&gt;
+&lt;p&gt;The comparison with ground truth is shown below, with left being the original character and right as the inferred character:&lt;/p&gt;
+
+&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;img src=&quot;/assets/compare3.png&quot; alt=&quot;compare&quot; style=&quot;width:600px;&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The result is pretty exciting. Compare with Rewrite, for many characters, the inferred shape is almost identical to its ground truth. Another pretty noticeable improvement is, the zi2zi model can handle much more stylized and complex font than Rewrite, having not shown bias towards certain families of fonts.&lt;/p&gt;
+
+&lt;h3 id=&quot;discover-the-embedded-space&quot;&gt;Discover the Embedded Space&lt;/h3&gt;
+&lt;p&gt;One perk we get from having continuous embeddings is that we can interpolate between different styles, and witness the states in between:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/transition.png&quot; alt=&quot;alt transition&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Below is the animation of transition between multiple pairs of fonts, which demonstrate the interpolation process in a more dynamic context:&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/assets/poem.gif&quot; alt=&quot;animation&quot; /&gt;
+&lt;/p&gt;
+&lt;h3 id=&quot;from-漢字hanzi-to-한글hangul&quot;&gt;From 漢字(HanZi) to 한글(Hangul)&lt;/h3&gt;
+&lt;p&gt;Chinese characters, no matter simplified or traditional or Japanese Kanji, are all constructed under common principles and a shared set of radicals. Would it be possible that this model just remember the radical shape and recombine them, and fails to generalize beyond that?&lt;/p&gt;
+
+&lt;p&gt;This makes Hangul(한글, 諺文), the Korean Alphabet, the perfect target for this question. Hangul, though having similar box-like structure as Chinese characters, is essentially its own system, with radicals that cannot be found in Chinese characters. It is an interesting challenge to test the model’s generalization capability beyond realm of Chinese characters:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/cn2kr.png&quot; alt=&quot;alt kr&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The leftmost column is a sample of source Chinese font, with the rest being the inferred Hangul counterparts. Noteworthily, at this moment, the model has not see any Hangul characters during the training. As the result shows, the output seems to resemble closely the style of the source Chinese font, which is a fairly strong evidence that the model generalizes beyond simply remembering the radicals and rehashing them. It can infer the look of unseen radicals as well, indicating the capturing of deeper structural and style information.&lt;/p&gt;
+
+&lt;h3 id=&quot;failure-cases&quot;&gt;Failure Cases&lt;/h3&gt;
+&lt;p&gt;The failure cases usually happen when the target font differs dramstically from other fonts it is trained with:&lt;/p&gt;
+
+&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;img src=&quot;/assets/failure.png&quot; alt=&quot;fail&quot; style=&quot;width: 200px;&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Such cases could be bypassed by fine-tuning the font in question, with a higher learning rate.&lt;/p&gt;
+&lt;h3 id=&quot;tried-but-didnt-work&quot;&gt;Tried but Didn’t Work&lt;/h3&gt;
+&lt;p&gt;During the project, one thing I tried but didn’t work is using instance normalization instead of batch normalization. Specifically the Conditional Instance Normalization introduced in this &lt;a href=&quot;https://research.googleblog.com/2016/10/supercharging-style-transfer.html&quot;&gt;paper&lt;/a&gt;. Though more parameters are used to represent each style, in reality it leads to longer convergence time, and higher chance of mode collapse. While still in the code, it is not used in any of the examples above. This may add as another interesting testament of the unreasonable representational power of BN.&lt;/p&gt;
+&lt;h2 id=&quot;moving-on&quot;&gt;Moving On&lt;/h2&gt;
+&lt;p&gt;It is both surprising and exciting to see that GAN works so well with fonts. Even better, unlike existing approaches, zi2zi works in an End-2-End fashion, assuming no stroke label or any other auxiliary information which is hard to obtain, only the images of the characters. Even though for now, zi2zi works mainly for CJK family fonts, because of its E2E nature, it could easily extend beyond that. In my wildest dream, could we train a model to learn the typefaces of all the languages in the world, that later on, people just need to design a single font, then automatically get the corresponding fonts in all the other languages? That is indeed a very exciting future to witness.&lt;/p&gt;
+
+&lt;p&gt;Further on, it will be interesting to see how new GAN techniques apply to this problem. It is hard to believe, only in 6 months, new ideas are already piling up. Trying stuff like StackGAN, better GAN models like WGAN and LSGAN(Loss Sensitive GAN), and other domain transfer network like DiscoGAN with it, could be enormously fun.&lt;/p&gt;
+
+&lt;h2 id=&quot;acknowledgements&quot;&gt;Acknowledgements&lt;/h2&gt;
+&lt;p&gt;Code derived and rehashed from:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/yenchenlin/pix2pix-tensorflow&quot;&gt;pix2pix-tensorflow&lt;/a&gt; by &lt;a href=&quot;https://github.com/yenchenlin&quot;&gt;yenchenlin&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/yunjey/domain-transfer-network&quot;&gt;Domain Transfer Network&lt;/a&gt; by &lt;a href=&quot;https://github.com/yunjey&quot;&gt;yunjey&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/buriburisuri/ac-gan&quot;&gt;ac-gan&lt;/a&gt; by &lt;a href=&quot;https://github.com/buriburisuri&quot;&gt;buriburisuri&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/carpedm20/DCGAN-tensorflow&quot;&gt;dc-gan&lt;/a&gt; by &lt;a href=&quot;https://github.com/carpedm20&quot;&gt;carpedm20&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/phillipi/pix2pix&quot;&gt;origianl pix2pix torch code&lt;/a&gt; by &lt;a href=&quot;https://github.com/phillipi&quot;&gt;phillipi&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>
